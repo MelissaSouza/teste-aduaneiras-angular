@@ -73,8 +73,8 @@
                 <td>70.000</td>
                 <td>BRL 10000</td>
                 <td>50.000</td>
-                <td><button class="btn btn-info" onclick="editarLinha(this)">Editar</button></td>
-                <td><button class="btn btn-danger" onclick="excluirLinha(this)">Excluir</button></td>
+                <td><button (click)="editarLinha($event)" class="btn btn-info" >Editar</button></td>
+                <td><button (click)="excluirLinha($event)" class="btn btn-danger">Excluir</button></td>
               </tr>
             </tbody>
           </table>
@@ -674,7 +674,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" onclick="gravarDados()">Gravar Dados</button>
+            <button (click)="gravarDados()" type="button" class="btn btn-primary">Gravar Dados</button>
           </div>
         </div>
       </div>

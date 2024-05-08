@@ -34,7 +34,7 @@
       <div id="dados-especificos" class="tab-pane fade">
             <!-- Planilha -->
         <div class="table-responsive mt-3">
-          <table class="table table-bordered">
+          <table id="planilha" class="table table-bordered">
             <thead>
               <tr>
                 <th>Adição</th>
@@ -60,8 +60,21 @@
                 <td>20.000</td>
                 <td>EUR 8000</td>
                 <td>40.000</td>
-                <td><button class="btn btn-info">Editar</button></td>
-                <td><button class="btn btn-danger">Excluir</button></td>
+                <td><button class="btn btn-info" onclick="editarLinha(this)">Editar</button></td>
+                <td><button class="btn btn-danger" onclick="excluirLinha(this)">Excluir</button></td>
+              </tr>
+
+              <tr>
+                <td>002</td>
+                <td>8080</td>
+                <td>Brasil</td>
+                <td>Brasil</td>
+                <td>BRL 10000</td>
+                <td>70.000</td>
+                <td>BRL 10000</td>
+                <td>50.000</td>
+                <td><button class="btn btn-info" onclick="editarLinha(this)">Editar</button></td>
+                <td><button class="btn btn-danger" onclick="excluirLinha(this)">Excluir</button></td>
               </tr>
             </tbody>
           </table>
@@ -108,7 +121,7 @@
               <div class="col-md-12 form1">
                 <div class="form-group col-md-3">
                   <label for="paisOrigem">País de Origem:</label>
-                  <select class="form-control" id="paisOrigem">
+                    <select class="form-control" id="paisOrigem">
                     <option value="Afeganistão">AF - Afeganistão</option>
                     <option value="África do Sul">ZA - África do Sul</option>
                     <option value="Albânia">AL - Albânia</option>
@@ -656,7 +669,7 @@
                 </select>
                 <input type="text" class="form-control col-md-6" id="aduaneiroText" label="Valor da Transação">
               </div>
-            </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -675,7 +688,91 @@
 
 
   <script>
+    function editarLinha(button) {
+      var row = button.parentNode.parentNode;
+      var cells = row.getElementsByTagName("td");
+  
+      // Capturando os valores das células da linha
+      var adicao = cells[0].innerHTML;
+      var codigoNCM = cells[1].innerHTML;
+      var paisOrigem = cells[2].innerHTML;
+      var unidadeMedida = cells[3].innerHTML;
+      var quantidadeMedida = cells[4].innerHTML;
+      var paisAquisicao = cells[5].innerHTML;
+      var unidadeComercializada = cells[6].innerHTML;
+      var quantidadeComercializada = cells[7].innerHTML;
+      var inconterm = cells[8].innerHTML;
+      var valorAduaneiro = cells[9].innerHTML;
+  
+      // Preenchendo os campos do formulário no modal
+      document.getElementById('adicao').value = adicao;
+      document.getElementById('codigoNCM').value = codigoNCM;
+      document.getElementById('paisOrigem').value = paisOrigem;
+      document.getElementById('unidadeMedida').value = unidadeMedida;
+      document.getElementById('quantidadeMedida').value = quantidadeMedida;
+      document.getElementById('paisAquisicao').value = paisAquisicao;
+      document.getElementById('unidadeComercializada').value = unidadeComercializada;
+      document.getElementById('quantidadeComercializada').value = quantidadeComercializada;
+      document.getElementById('inconterm').value = inconterm;
+      document.getElementById('incontermText').value = incontermText;
+      document.getElementById('valorAduaneiro').value = valorAduaneiro;
+      document.getElementById('aduaneiroText').value = aduaneiroText;
+  
+      // Exibindo o modal
+      $('#modalIncluirAdicao').modal('show');
+    }
+  
+    function excluirLinha(button) {
+      var row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
+  
     function gravarDados() {
+      // Captura dos dados do formulário
+      var adicao = document.getElementById('adicao').value;
+      var codigoNCM = document.getElementById('codigoNCM').value;
+      var paisOrigem = document.getElementById('paisOrigem').value;
+      var unidadeMedida = document.getElementById('unidadeMedida').value;
+      var quantidadeMedida = document.getElementById('quantidadeMedida').value;
+      var paisAquisicao = document.getElementById('paisAquisicao').value;
+      var unidadeComercializada = document.getElementById('unidadeComercializada').value;
+      var quantidadeComercializada = document.getElementById('quantidadeComercializada').value;
+      var inconterm = document.getElementById('inconterm').value;
+      var incontermText = document.getElementById('incontermText').value;
+      var valorAduaneiro = document.getElementById('valorAduaneiro').value;
+      var aduaneiroText = document.getElementById('aduaneiroText').value;
+  
+      // Criação de uma nova linha na tabela
+      var table = document.getElementById('planilha');
+      var newRow = table.insertRow(-1);
+  
+      // Inserção dos dados na nova linha
+      var cellAdicao = newRow.insertCell(0);
+      var cellCodigoNCM = newRow.insertCell(1);
+      var cellPaisOrigem = newRow.insertCell(2);
+      var cellUnidadeMedida = newRow.insertCell(3);
+      var cellQuantidadeMedida = newRow.insertCell(4);
+      var cellPaisAquisicao = newRow.insertCell(5);
+      var cellUnidadeComercializada = newRow.insertCell(6);
+      var cellQuantidadeComercializada = newRow.insertCell(7);
+      var cellInconterm = newRow.insertCell(8);
+      var cellValorAduaneiro = newRow.insertCell(9);
+
+  
+      cellAdicao.innerHTML = adicao;
+      cellCodigoNCM.innerHTML = codigoNCM;
+      cellPaisOrigem.innerHTML = paisOrigem;
+      cellUnidadeMedida.innerHTML = unidadeMedida;
+      cellQuantidadeMedida.innerHTML = quantidadeMedida;
+      cellPaisAquisicao.innerHTML = paisAquisicao;
+      cellUnidadeComercializada.innerHTML = unidadeComercializada;
+      cellQuantidadeComercializada.innerHTML = quantidadeComercializada
+      cellInconterm.innerHTML = inconterm;
+      cellValorAduaneiro.innerHTML = valorAduaneiro;
+  
+      // Fechar o modal após a gravação
+      $('#modalIncluirAdicao').modal('hide');
     }
   </script>
 
